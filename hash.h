@@ -6,7 +6,7 @@ using namespace std;
 class Hash
 {
     private:
-        static const int tableSize = 40;
+        static const int tableSize = 4;
         struct item // things the hashtable consists of
         {
             string name;

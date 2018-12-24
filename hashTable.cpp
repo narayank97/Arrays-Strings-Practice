@@ -184,7 +184,28 @@ void Hash::removeItem(string name)
     // CASE 4.2: match is found
     else
     {
-        
+        P1 = hashTable[index] -> nextItem;
+        P2 = hashTable[index];
+
+        while(P1 != NULL && P1 -> name != name)
+        {
+            P2 = P1;
+            P1 = P1 -> nextItem;
+        }
+        // CASE 4.1: no match
+        if(P1 == NULL)
+        {
+            cout << name << " this name was not found." << endl;
+        }
+        // CASE 4.2: match is found
+        else
+        {
+            delPTR = P1;
+            P1 = P1 -> nextItem;
+            P2 -> nextItem = P1;
+            delete delPTR;
+            cout << name << " was removed from Hash Table." << endl;
+        }
     }
 
 
@@ -210,19 +231,17 @@ int main()
     myHashTable.addItem("tan","caprisun");
     myHashTable.addItem("john","juice");
 
+    myHashTable.printTable();
+
     while(name != "exit")
     {
-        cout << "search for : ";
+        cout << "Remove: ";
         cin >> name;
         if(name != "exit")
         {
-            myHashTable.findDrink(name);
+            myHashTable.removeItem(name);
+            myHashTable.printTable();
         }
     }
-    
-    myHashTable.printLinkedLists(2);
-    cout << endl;
-    myHashTable.printTable();
-
     return 0;
 }
