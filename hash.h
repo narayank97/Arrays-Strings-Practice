@@ -22,4 +22,6 @@ class Hash
         int numberOfInputsInIndex(int index);
         void printTable();
         void printLinkedLists(int index);
+        void findDrink(string name);
+        void removeItem(string name);
 };

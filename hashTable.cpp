@@ -23,7 +23,7 @@ int Hash::hashFunc(string key)
     int mylength = key.length();
     for(int i = 0; i < mylength; i++)
     {
-        hash += (int) key[i];
+        hash += ((int) key[i]) * 17;
     }
     index = hash % tableSize;
     return index;
@@ -115,8 +115,86 @@ void Hash::printLinkedLists(int index)
 
 }
 
+void Hash::findDrink(string name)
+{
+    int index = hashFunc(name); // calculates which linked list name is in
+    bool foundName = false;
+    string drink;
+
+    item* PTR = hashTable[index];
+    while(PTR != NULL) // keep going through Linked List until name is found
+    {
+        if(PTR -> name == name)
+        {
+            foundName = true;
+            drink = PTR -> drink;
+        }
+        PTR = PTR -> nextItem;
+    }
+    if(foundName == true)
+    {
+        cout << "Favorite Drink = " << drink << endl;
+    }
+    else
+    {
+        cout << "That info was not found." << endl;
+    }
+}
+
+void Hash::removeItem(string name)
+{
+    // 4 different cases of REMOVAL
+    // CASE 1: Linked List is empty
+    // CASE 2: 1 item in LL and that item == name
+    // CASE 3: name located as 1st in LL and more items in LL
+    // CASE 4: LL has items but name is not first one
+    // CASE 4.1: no match
+    // CASE 4.2: match is found
+
+    int index = hashFunc(name); // calculates which linked list name is in
+    item* delPTR;
+    item* P1;
+    item* P2;
+
+     // CASE 1: Linked List is empty
+    if(hashTable[index] -> name == "empty" && hashTable[index] -> nextItem == NULL)
+    {
+        cout << name << " this name was not found." << endl;
+    }
+
+    // CASE 2: 1 item in LL and that item == name
+    else if(hashTable[index] -> name == name && hashTable[index] -> nextItem == NULL)
+    {
+        hashTable[index] -> name = "empty";
+        hashTable[index] -> drink = "empty";
+        cout << name << " was removed from Hash Table." << endl;
+    }
+
+    // CASE 3: name located as 1st in LL and more items in LL
+    else if(hashTable[index] -> name == name)
+    {
+        delPTR = hashTable[index];
+        hashTable[index] = hashTable[index] -> nextItem;
+        delete delPTR;
+        cout << name << " was removed from Hash Table." << endl;
+    }
+
+    // CASE 4: LL has items but name is not first one
+    // CASE 4.1: no match
+    // CASE 4.2: match is found
+    else
+    {
+        
+    }
+
+
+
+
+} 
+
 int main()
 {
+    string name = "";
     Hash myHashTable;
     
     myHashTable.addItem("Karun","beer");
@@ -132,6 +210,16 @@ int main()
     myHashTable.addItem("tan","caprisun");
     myHashTable.addItem("john","juice");
 
+    while(name != "exit")
+    {
+        cout << "search for : ";
+        cin >> name;
+        if(name != "exit")
+        {
+            myHashTable.findDrink(name);
+        }
+    }
+    
     myHashTable.printLinkedLists(2);
     cout << endl;
     myHashTable.printTable();
