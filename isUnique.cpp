@@ -3,6 +3,10 @@
 #include <stdbool.h>
 using namespace std;
 
+// Runs in O(n^2)
+// Is Unique: Implement an algorithm to determine if a string has all unique characters. What if you
+//cannot use additional data structures? 
+
 bool isUnique(string myString)
 {
   int Length = myString.length();
@@ -25,7 +29,7 @@ bool isUnique(string myString)
 
 int main()
 {
-  string name = "Karun";
+  string name = "Kdog";
   string animal = "animal";
   string a = "aaaaaa";
   string b = "abcdef";
