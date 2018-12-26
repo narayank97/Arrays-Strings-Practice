@@ -4,6 +4,8 @@
 
 using namespace std;
 
+// Given two strings,write a method to decide if one is a permutation of the other.
+
 int indexGen(char letter)
 {
     int index;
